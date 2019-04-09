@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED TRUE
 
 RUN git clone --depth 1 https://github.com/sanjay-boddu/python-gene-search.git /usr/src/gene-search-app
 
-WORKDIR usr/src/gene-search-app
+WORKDIR /usr/src/gene-search-app
 
 RUN pip3 install --no-cache-dir -r requirements.txt \
     && python dump_genes.py
