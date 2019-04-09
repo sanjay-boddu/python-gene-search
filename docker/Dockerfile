@@ -5,7 +5,7 @@ LABEL maintainer="sboddu@ebi.ac.uk"
 # Environment variable
 ENV PYTHONUNBUFFERED TRUE
 
-RUN git clone https://github.com/sanjay-boddu/python-gene-search.git /usr/src/gene-search-app
+RUN git clone --depth 1 https://github.com/sanjay-boddu/python-gene-search.git /usr/src/gene-search-app
 
 WORKDIR usr/src/gene-search-app
 
