@@ -9,7 +9,7 @@ api = Api(application)
 
 
 class HelloEnsembl(Resource):
-    def get(self):
+    def get(self, path=''):
        return jsonify({'info': 'Use endpoint /gene_suggest/:species/:gene/:id'})
 
 class Gene(Resource):
@@ -30,7 +30,7 @@ class Gene(Resource):
          return jsonify({'info': 'species {} not available'.format(species)})
 
 
-api.add_resource(HelloEnsembl, '/')
+api.add_resource(HelloEnsembl, '/', '/<path:path>')
 api.add_resource(Gene, '/gene_suggest/<string:species>/<string:gene>/<int:limit>')
 
 
