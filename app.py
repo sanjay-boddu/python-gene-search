@@ -10,10 +10,10 @@ api = Api(application)
 
 class HelloEnsembl(Resource):
     def get(self):
-       return jsonify({'info': 'Use endpoint /<species>/<gene>'})
+       return jsonify({'info': 'Use endpoint /gene_suggest/:species/:gene/:id'})
 
 class Gene(Resource):
-   def get(self, species, gene):
+   def get(self, species, gene, limit):
       
       species_data_file_path = "{}/data/{}.json".format(os.getcwd(), species.lower())
       if os.path.isfile(species_data_file_path):
@@ -25,13 +25,13 @@ class Gene(Resource):
          compiled_regex = re.compile(search_regex, re.IGNORECASE)
          found_genes = list(filter(compiled_regex.search, species_data))
         
-         return jsonify(found_genes)
+         return jsonify(found_genes[:limit])
       else:
          return jsonify({'info': 'species {} not available'.format(species)})
 
 
 api.add_resource(HelloEnsembl, '/')
-api.add_resource(Gene, '/<string:species>/<string:gene>')
+api.add_resource(Gene, '/gene_suggest/<string:species>/<string:gene>/<int:limit>')
 
 
 if __name__ == "__main__":
