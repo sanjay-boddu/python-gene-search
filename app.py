@@ -35,4 +35,4 @@ api.add_resource(Gene, '/gene_suggest/<string:species>/<string:gene>/<int:limit>
 
 
 if __name__ == "__main__":
-	application.run(debug=True, host="0.0.0.0", port="8011")
+	application.run(host="0.0.0.0", port="8011")
