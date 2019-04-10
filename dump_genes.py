@@ -33,9 +33,9 @@ try:
          data_files_path = os.getcwd()+"/data"  
          os.makedirs(data_files_path, exist_ok=True) 
        except OSError:  
-         print(f"Creation of the directory {data_files_path} failed")
+         print("Creation of the directory {} failed".format(data_files_path))
        else:  
-         print(f"Successfully created the directory {data_files_path}")
+         print("Successfully created the directory {}".format(data_files_path))
 
 
        for species, gene_set in genes_of_species.items():
