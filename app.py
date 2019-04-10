@@ -10,24 +10,28 @@ api = Api(application)
 
 class HelloEnsembl(Resource):
    def get(self, path=''):
+       # Return 404 response status code with error message if user queries any endpoint other than gene_suggest
        return make_response(jsonify({'error': 'Use endpoint /gene_suggest/:species/:gene/:limit'}), 404)
 
 class Gene(Resource):
    def get(self, species, gene, limit):
-      
+     
+      # Search for species json file. If not found, return species not available message 
       species_data_file_path = "{}/data/{}.json".format(os.getcwd(), species.lower())
       if os.path.isfile(species_data_file_path):
          
          with open(species_data_file_path, 'r') as species_data_file:
             species_data = json.load(species_data_file)
-        
+         
+         # Use compiled regex to find gene names starting with query gene string
+         # Compiled regex helps in speeding up the process as we are dealing with large number of genes 
          search_regex = "^{}.*".format(gene)
          compiled_regex = re.compile(search_regex, re.IGNORECASE)
          found_genes = list(filter(compiled_regex.search, species_data))
         
-         return jsonify(found_genes[:limit])
+         return make_response(jsonify(found_genes[:limit]), 200)
       else:
-         return jsonify({'info': 'species {} not available'.format(species)})
+         return make_response(jsonify({'info': 'species {} not available'.format(species)}), 400)
 
 
 api.add_resource(HelloEnsembl, '/', '/<path:path>')
