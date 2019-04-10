@@ -26,7 +26,7 @@ try:
 
        record = cursor.fetchone()
        while record is not None:
-          genes_of_species.setdefault(record[0], []).append(record[1]) 
+          genes_of_species.setdefault(record[0], set()).add(format(record[1])) 
           record = cursor.fetchone()
 
        try:  
@@ -38,9 +38,9 @@ try:
          print(f"Successfully created the directory {data_files_path}")
 
 
-       for species, gene_list in genes_of_species.items():
+       for species, gene_set in genes_of_species.items():
            with open("data/"+species+".json", "w") as write_file:
-              json.dump(list(set(gene_list)), write_file)
+              json.dump(list(gene_set), write_file)
 
 except Error as e :
     print ("Error while connecting to MySQL", e)
