@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
 import json
 import re
 from flask_restful import Resource, Api
@@ -9,8 +9,8 @@ api = Api(application)
 
 
 class HelloEnsembl(Resource):
-    def get(self, path=''):
-       return jsonify({'info': 'Use endpoint /gene_suggest/:species/:gene/:limit'})
+   def get(self, path=''):
+       return make_response(jsonify({'error': 'Use endpoint /gene_suggest/:species/:gene/:limit'}), 404)
 
 class Gene(Resource):
    def get(self, species, gene, limit):
