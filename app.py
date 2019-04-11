@@ -29,7 +29,7 @@ class Gene(Resource):
          compiled_regex = re.compile(search_regex, re.IGNORECASE)
          found_genes = list(filter(compiled_regex.search, species_data))
         
-         return make_response(jsonify(found_genes[:limit]), 200)
+         return make_response(jsonify({'gene_suggestions': found_genes[:limit]}), 200)
       else:
          return make_response(jsonify({'info': 'species {} not available'.format(species)}), 400)
 
